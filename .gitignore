@@ -1,18 +1,11 @@
-
-# Python virtual environment
-.venv/
-venv/
-
-# Python cache
 __pycache__/
-*.py[cod]
 .pytest_cache/
-
-# Local databases
+*.pyc
 *.db
-*.db-journal
-*.db-wal
-*.db-shm
+.env
+.venv/
+# Local database
+*.db
 *.sqlite
 *.sqlite3
 
@@ -20,18 +13,11 @@ __pycache__/
 .env
 .env.*
 !.env.example
-*.pem
-*.key
 
-# IDE settings
+# IDE and operating system
 .vscode/
 .idea/
-
-# OS files
 .DS_Store
-Thumbs.db
 
-# Logs
-*.log
-
-.git-backup/
+# Streamlit secrets
+.streamlit/secrets.toml

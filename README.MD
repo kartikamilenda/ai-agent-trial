@@ -1,135 +1,63 @@
-# Local AI Agent from Scratch
+# Meeting Action AI Agent
 
-A lightweight, locally running AI Agent built from scratch using Python, Ollama, Qwen3, and SQLite, without commercial AI APIs or agent orchestration frameworks.
+A local, sequential **two-agent** meeting-to-task prototype based on the supplied use-case design. Agent 1 extracts action items from Indonesian or English meeting notes using Qwen3 1.7B. Pydantic validates structured JSON. A Python coordinator asks for missing PIC/deadline and requires **explicit human approval** before creating SQLite tasks. Agent 2 uses Ollama tool calling to list, update, summarize and check overdue tasks.
 
-## Overview
+## Requirements
+- Python 3.10+
+- Ollama installed and running locally
+- Qwen3 1.7B pulled locally
 
-This project demonstrates the fundamental architecture of a tool-using AI Agent, including:
+## Install
 
-- Local LLM inference using Ollama
-- Custom agent execution loop
-- Function calling and tool execution
-- SQLite-based task management
-- Tool allowlisting and basic error handling
-- Unit testing
+```bash
+ollama pull qwen3:1.7b
+python -m venv .venv
+# Windows: .venv\\Scripts\\activate
+# macOS/Linux: source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+Ensure Ollama is running (`ollama serve` if it is not already running).
+
+## Run
+
+**Web interface:** `streamlit run app.py`
+
+**Command line:** `python main.py`
+
+**Offline unit tests (no Ollama call):** `python -m unittest discover -s tests -v`
+
+## Example
+
+Input: `Andi menyelesaikan API login tanggal 6 November, Sinta membuat desain dashboard tanggal 9 November, dan dokumentasi API perlu diperbaiki.`
+
+Expected: three candidate tasks, with missing information flagged. The user corrects ambiguous dates and supplies PIC/deadline as needed. After approval, only complete tasks are saved. Ask Agent 2 to show tasks, update statuses, or find overdue work.
 
 ## Architecture
 
 ```text
-User (CLI)
-    |
-    v
-Agent Controller (Python)
-    |
-    +----> Local LLM (Ollama / Qwen3)
-    |          |
-    |          v
-    |      Tool Selection
-    |          |
-    v          v
-Tool Registry / Executor
-    |
-    v
-SQLite Database
-    |
-    v
-Tool Result -> Agent Controller
-    |
-    v
-Final Response / Next Action
+Meeting notes -> Coordinator -> Agent 1 (Ollama Qwen3) -> Pydantic validation
+                      -> Human review / clarification -> Approved complete items
+                      -> Task tools -> SQLite
+Task command -> Agent 2 (Ollama Qwen3 tool calling) -> allowlisted tools -> SQLite
 ```
 
-## Technology Stack
+## Files
+- `agents/meeting_agent.py`: structured extraction
+- `agents/task_agent.py`: tool-calling agent
+- `coordinator.py`: state, clarification, human approval
+- `models.py`: Pydantic schemas
+- `tools/task_tools.py`: CRUD/status, overdue, summary
+- `tools/context_tools.py`: context excerpt helper
+- `database.py`: SQLite schema and migration
+- `app.py`: Streamlit UI
+- `main.py`: CLI
+- `tests/`: deterministic unit tests
 
-| Component | Technology |
-|---|---|
-| Language | Python |
-| LLM | Qwen3 1.7B |
-| Inference | Ollama |
-| Database | SQLite |
-| Interface | CLI |
-| Agent Framework | None |
-
-## Features
-
-- Create tasks
-- List tasks by status
-- Update task status
-- Select tools using a local LLM
-- Execute multiple tool calls
-- Basic error handling
-
-## Getting Started
-
-### 1. Prerequisites
-
-Install Python and Ollama.
-
-Download the model:
-
-```bash
-ollama pull qwen3:1.7b
-```
-
-### 2. Set up Python
-
-```bash
-python -m venv .venv
-```
-
-On Windows:
-
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-```
-
-### 3. Initialize database
-
-```powershell
-.\.venv\Scripts\python.exe database.py
-```
-
-### 4. Run the agent
-
-```powershell
-.\.venv\Scripts\python.exe agent.py
-```
-
-### 5. Run unit tests
-
-```powershell
-.\.venv\Scripts\python.exe -m unittest test_tools.py -v
-```
-
-## Example Prompts
-
-- Create a task to implement an API for Andi.
-- Show all pending tasks.
-- Mark task ID 1 as completed.
-- Create a task and then list all pending tasks.
-
-## Current Limitations
-
-- Single-user CLI application
-- Conversation state is not persisted between sessions
-- Limited context management
-- Basic validation and error handling
-- No systematic LLM reliability evaluation yet
-
-## Roadmap
-
-- [x] Local LLM integration
-- [x] Custom agent controller
-- [x] Tool calling
-- [x] SQLite persistence
-- [x] Unit testing
-- [ ] Agent evaluation
-- [ ] Persistent conversation memory
-- [ ] Human-in-the-loop approval
-- [ ] Observability and monitoring
-- [ ] FastAPI integration
-- [ ] Multi-agent experimentation
-
-## Project Goal
-
-To understand AI Agent architecture, orchestration, tool execution, state management, reliability, and AI infrastructure through hands-on implementation using open-source technologies.
+## Limitations
+- Requires a locally running Ollama service and model. The model's actual extraction accuracy depends on the meeting language, ambiguity and model performance.
+- Agent 1's small local model may miss tasks or produce invalid JSON. Review its results before approval.
+- Date ambiguity is intentionally not resolved by guessing; correct dates in the review UI.
+- Pending clarification is kept in the current Streamlit session or CLI process, not persisted across restarts.
+- Single-user local prototype; no authentication, external calendar, email or cloud integrations.
+- Avoid processing sensitive meeting notes without appropriate local device safeguards.
