@@ -41,13 +41,58 @@ class TestCore(unittest.TestCase):
         from coordinator import Coordinator
         from models import ActionItem
         from tools.task_tools import list_tasks
+
         c = Coordinator()
-        c.pending = [ActionItem(title='Fix API docs')]
-        self.assertEqual(c.preview()['incomplete'], 1)
-        self.assertEqual(c.confirm_and_save()['created'], [])
-        c.clarify(0, 'Sinta', '2027-01-11')
-        self.assertEqual(len(c.confirm_and_save()['created']), 1)
-        self.assertEqual(len(list_tasks()), 1)
+        c.pending = [
+            ActionItem(title="Fix API docs")
+        ]
+
+        # 1. Task initially incomplete
+        self.assertEqual(c.preview()["incomplete"], 1)
+
+        # 2. Saving without approval must be rejected
+        with self.assertRaises(PermissionError):
+            c.confirm_and_save()
+
+        # 3. Complete the missing information
+        c.clarify(
+            index=0,
+            assignee="Sinta",
+            deadline="2027-01-11"
+        )
+
+        # 4. Task should now be complete
+        self.assertEqual(c.preview()["ready"], 1)
+        self.assertEqual(c.preview()["incomplete"], 0)
+
+        # 5. Clarification does not grant approval
+        with self.assertRaises(PermissionError):
+            c.confirm_and_save()
+
+        # 6. User explicitly approves
+        approval = c.approve()
+        self.assertTrue(approval["approved"])
+
+        # 7. Save the approved task
+        result = c.confirm_and_save()
+
+        # 8. Verify execution result
+        self.assertEqual(len(result["created"]), 1)
+        self.assertEqual(result["errors"], [])
+
+        # 9. Verify actual database persistence
+        tasks = list_tasks()
+
+        self.assertEqual(len(tasks), 1)
+        self.assertEqual(tasks[0]["title"], "Fix API docs")
+        self.assertEqual(tasks[0]["assignee"], "Sinta")
+        self.assertEqual(tasks[0]["deadline"], "2027-01-11")
+
+        # 10. Saved task should no longer be pending
+        self.assertEqual(len(c.pending), 0)
+
+        # 11. Approval is reset after saving
+        self.assertFalse(c.approved)
 
 if __name__ == '__main__':
     unittest.main()
