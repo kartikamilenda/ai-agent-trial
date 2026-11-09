@@ -1,0 +1,21 @@
+{
+  "case_id": "M04",
+  "category": "Missing deadline",
+  "latency_seconds": 17.971,
+  "expected": [
+    {
+      "title": "Memperbaiki desain template email",
+      "assignee": "Sinta",
+      "deadline": null
+    }
+  ],
+  "predicted": [
+    {
+      "title": "Memperbaiki desain template email",
+      "assignee": "Sinta",
+      "deadline": null,
+      "source_excerpt": "Rapat 9 November 2026. Sinta ditugaskan memperbaiki desain template email. Tenggat waktu belum ditentukan."
+    }
+  ],
+  "error": null
+}

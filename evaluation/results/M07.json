@@ -1,0 +1,21 @@
+{
+  "case_id": "M07",
+  "category": "Task versus undecided proposal",
+  "latency_seconds": 15.222,
+  "expected": [
+    {
+      "title": "Memperbaiki bug login",
+      "assignee": "Andi",
+      "deadline": "2026-11-12"
+    }
+  ],
+  "predicted": [
+    {
+      "title": "Memperbaiki bug login",
+      "assignee": "Andi",
+      "deadline": "2026-11-12",
+      "source_excerpt": "Andi harus memperbaiki bug login pada 12 November 2026."
+    }
+  ],
+  "error": null
+}

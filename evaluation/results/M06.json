@@ -1,0 +1,21 @@
+{
+  "case_id": "M06",
+  "category": "No action items",
+  "latency_seconds": 23.574,
+  "expected": [],
+  "predicted": [
+    {
+      "title": "Memperbarui dokumentasi API",
+      "assignee": null,
+      "deadline": null,
+      "source_excerpt": "Tim menyepakati dokumentasi API perlu diperbarui, tetapi PIC dan deadline belum ditentukan."
+    },
+    {
+      "title": "Memperbaiki API login",
+      "assignee": "Andi",
+      "deadline": "2026-11-12",
+      "source_excerpt": "Maya meminta Andi memperbaiki API login paling lambat 12 November 2026."
+    }
+  ],
+  "error": null
+}

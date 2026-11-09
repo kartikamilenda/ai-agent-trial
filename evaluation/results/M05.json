@@ -1,0 +1,21 @@
+{
+  "case_id": "M05",
+  "category": "Missing PIC and deadline",
+  "latency_seconds": 16.788,
+  "expected": [
+    {
+      "title": "Melakukan audit dokumentasi sistem",
+      "assignee": null,
+      "deadline": null
+    }
+  ],
+  "predicted": [
+    {
+      "title": "Audit dokumentasi sistem",
+      "assignee": null,
+      "deadline": null,
+      "source_excerpt": "Rapat 9 November 2026. Tim menyepakati perlunya melakukan audit dokumentasi sistem. PIC dan deadline belum ditentukan."
+    }
+  ],
+  "error": null
+}

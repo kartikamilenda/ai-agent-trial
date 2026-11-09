@@ -1,0 +1,21 @@
+{
+  "case_id": "M08",
+  "category": "Relative deadline",
+  "latency_seconds": 17.921,
+  "expected": [
+    {
+      "title": "Mengirim laporan pengujian",
+      "assignee": "Budi",
+      "deadline": "2026-11-10"
+    }
+  ],
+  "predicted": [
+    {
+      "title": "Mengirim laporan pengujian",
+      "assignee": "Budi",
+      "deadline": "2026-11-10",
+      "source_excerpt": "Rapat dilaksanakan 9 November 2026. Maya meminta Budi mengirim laporan pengujian besok, 10 November 2026."
+    }
+  ],
+  "error": null
+}

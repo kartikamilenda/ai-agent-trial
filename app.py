@@ -92,8 +92,8 @@ with tab1:
         "Meeting notes / transcript",
         height=220,
         placeholder=(
-            "Andi menyelesaikan API login "
-            "tanggal 12 November 2026..."
+            "Tuliskan / Pindahkan "
+            "Hasil Notulensi disini.."
         )
     )
 
