@@ -1,12 +1,13 @@
 
-import os
 import tempfile
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 
 import database
+
 from database import init_database
-from tools import (
+from tools.task_tools import (
     create_task,
     list_tasks,
     update_task_status
@@ -17,12 +18,17 @@ class TestAgentTools(unittest.TestCase):
 
     def setUp(self):
         self.temp_dir = tempfile.TemporaryDirectory()
-        self.db_file = os.path.join(
-            self.temp_dir.name, "test_tasks.db"
+
+        self.db_file = (
+            Path(self.temp_dir.name) / "test_tasks.db"
         )
+
         self.db_patch = patch.object(
-            database, "DB_PATH", self.db_file
+            database,
+            "DB_PATH",
+            self.db_file
         )
+
         self.db_patch.start()
         init_database()
 
@@ -33,27 +39,68 @@ class TestAgentTools(unittest.TestCase):
     def test_create_task(self):
         result = create_task(
             "Implement API",
+            "Andi",
+            "2026-11-12"
+        )
+
+        self.assertEqual(
+            result["title"],
+            "Implement API"
+        )
+        self.assertEqual(
+            result["assignee"],
             "Andi"
         )
-        self.assertIn("Created task", result)
+        self.assertEqual(
+            result["status"],
+            "pending"
+        )
 
     def test_list_pending_tasks(self):
-        create_task("Implement API", "Andi")
+        create_task(
+            "Implement API",
+            "Andi",
+            "2026-11-12"
+        )
+
         result = list_tasks("pending")
-        self.assertIn("Implement API", result)
+
+        self.assertEqual(len(result), 1)
+        self.assertEqual(
+            result[0]["title"],
+            "Implement API"
+        )
 
     def test_update_task(self):
-        create_task("Implement API", "Andi")
-        result = update_task_status(1, "completed")
-        self.assertIn("completed", result)
+        task = create_task(
+            "Implement API",
+            "Andi",
+            "2026-11-12"
+        )
+
+        result = update_task_status(
+            task["id"],
+            "completed"
+        )
+
+        self.assertEqual(
+            result["status"],
+            "completed"
+        )
 
     def test_invalid_status(self):
-        result = update_task_status(1, "deleted")
-        self.assertIn("ERROR", result)
+        with self.assertRaises(ValueError):
+            update_task_status(
+                1,
+                "deleted"
+            )
 
     def test_missing_task(self):
-        result = update_task_status(999, "completed")
-        self.assertIn("not found", result)
+        with self.assertRaises(ValueError):
+            update_task_status(
+                999,
+                "completed"
+            )
 
 
 if __name__ == "__main__":

@@ -1,0 +1,21 @@
+{
+  "case_id": "M09",
+  "category": "Repeated assignment",
+  "latency_seconds": 24.782,
+  "expected": [
+    {
+      "title": "Memperbaiki API login",
+      "assignee": "Andi",
+      "deadline": "2026-11-12"
+    }
+  ],
+  "predicted": [
+    {
+      "title": "Memperbaiki API login",
+      "assignee": "Andi",
+      "deadline": "2026-11-12",
+      "source_excerpt": "Andi diminta memperbaiki API login sebelum 12 November 2026. Pada akhir rapat, Maya kembali mengingatkan bahwa Andi harus menyelesaikan perbaikan API login pada 12 November 2026. Keduanya merujuk pada pekerjaan yang sama."
+    }
+  ],
+  "error": null
+}

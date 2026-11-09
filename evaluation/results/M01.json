@@ -1,0 +1,21 @@
+{
+  "case_id": "M01",
+  "category": "Single complete task",
+  "latency_seconds": 52.457,
+  "expected": [
+    {
+      "title": "Memperbaiki API login",
+      "assignee": "Andi",
+      "deadline": "2026-11-12"
+    }
+  ],
+  "predicted": [
+    {
+      "title": "Memperbaiki API login",
+      "assignee": "Andi",
+      "deadline": "2026-11-12",
+      "source_excerpt": "Rapat 9 November 2026. Maya meminta Andi memperbaiki API login paling lambat 12 November 2026."
+    }
+  ],
+  "error": null
+}

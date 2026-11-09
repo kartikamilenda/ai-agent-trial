@@ -1,0 +1,54 @@
+{
+  "case_id": "M10",
+  "category": "Mixed meeting context",
+  "latency_seconds": 50.563,
+  "expected": [
+    {
+      "title": "Memperbaiki refresh token",
+      "assignee": "Andi",
+      "deadline": "2026-11-12"
+    },
+    {
+      "title": "Memperbaiki filter dashboard",
+      "assignee": "Budi",
+      "deadline": "2026-11-13"
+    },
+    {
+      "title": "Memperbarui dokumentasi API",
+      "assignee": null,
+      "deadline": null
+    },
+    {
+      "title": "Merevisi template email",
+      "assignee": "Sinta",
+      "deadline": null
+    }
+  ],
+  "predicted": [
+    {
+      "title": "Memperbaiki refresh token",
+      "assignee": "Andi",
+      "deadline": "2026-11-12",
+      "source_excerpt": "Andi menyampaikan modul autentikasi telah selesai, tetapi Maya meminta Andi memperbaiki refresh token sebelum 12 November 2026."
+    },
+    {
+      "title": "Memperbaiki filter dashboard",
+      "assignee": "Budi",
+      "deadline": "2026-11-13",
+      "source_excerpt": "Budi harus memperbaiki filter dashboard pada 13 November 2026."
+    },
+    {
+      "title": "Memperbarui dokumentasi API",
+      "assignee": null,
+      "deadline": null,
+      "source_excerpt": "Tim menyepakati dokumentasi API perlu diperbarui, tetapi PIC dan deadline belum ada."
+    },
+    {
+      "title": "Merevisi template email",
+      "assignee": null,
+      "deadline": null,
+      "source_excerpt": "Sinta ditugaskan merevisi template email tanpa tenggat waktu yang ditentukan."
+    }
+  ],
+  "error": null
+}

@@ -1,0 +1,43 @@
+{
+  "case_id": "M02",
+  "category": "Multiple complete tasks",
+  "latency_seconds": 42.868,
+  "expected": [
+    {
+      "title": "Memperbaiki login",
+      "assignee": "Andi",
+      "deadline": "2026-11-12"
+    },
+    {
+      "title": "Menguji dashboard",
+      "assignee": "Budi",
+      "deadline": "2026-11-13"
+    },
+    {
+      "title": "Merevisi desain laporan",
+      "assignee": "Sinta",
+      "deadline": "2026-11-14"
+    }
+  ],
+  "predicted": [
+    {
+      "title": "Memperbaiki login",
+      "assignee": "Andi",
+      "deadline": "2026-11-12",
+      "source_excerpt": "Andi ditugaskan memperbaiki login sebelum 12 November 2026."
+    },
+    {
+      "title": "Menguji dashboard",
+      "assignee": "Budi",
+      "deadline": "2026-11-13",
+      "source_excerpt": "Budi harus menguji dashboard pada 13 November 2026."
+    },
+    {
+      "title": "Merevisi desain laporan",
+      "assignee": "Sinta",
+      "deadline": "2026-11-14",
+      "source_excerpt": "Sinta bertanggung jawab merevisi desain laporan tanggal 14 November 2026."
+    }
+  ],
+  "error": null
+}
